@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Booking Details</h1>
+    </header>
+    <main>
+        <div id="details" class="center-content"></div>
+    </main>
+    <footer>
+        <p>Contact us at info@booking.com</p>
+        <p>All rights reserved &copy; 2024</p>
+    </footer>
+
+    <script>
+        const locationsData = {
+            "Bangalore": [
+                {
+                    name: "Hebbal",
+                    address: "55, Hebbal Ring Road, Sunrise Avenue, Bangalore, Karnataka, 560024",
+                    totalBeds: 20
+                },
+                {
+                    name: "Marathahalli",
+                    address: "9, Outer Ring Road, Marathahalli Bridge Approach Road, Emerald Street, Bangalore, Karnataka, 560037",
+                    totalBeds: 30
+                },
+                {
+                    name: "Majestic",
+                    address: "30, Cubbon Park Road, Emerald Lane, Bangalore, Karnataka, 560001",
+                    totalBeds: 25
+                },
+                {
+                    name: "Whitefield",
+                    address: "77, Whitefield Main Road, Ivory Lane, Bangalore, Karnataka, 560066",
+                    totalBeds: 35
+                }
+            ],
+            "Hyderabad": [
+                {
+                    name: "Jubilee Hills",
+                    address: "5, Jubilee Hills Road No. 36, Emerald Street, Hyderabad, Telangana, 500033",
+                    totalBeds: 35
+                },
+                {
+                    name: "Kukatpally",
+                    address: "17, Kukatpally Main Road, Diamond Avenue, Hyderabad, Telangana, 500072",
+                    totalBeds: 25
+                },
+                {
+                    name: "Secunderabad",
+                    address: "22, Secunderabad Station Road, Sapphire Lane, Secunderabad, Telangana, 500003",
+                    totalBeds: 30
+                },
+                {
+                    name: "Ameerpet",
+                    address: "28, Ameerpet Cross Road, Sapphire Lane, Hyderabad, Telangana, 500038",
+                    totalBeds: 30
+                }
+            ],
+            "Chennai": [
+                {
+                    name: "Mylapore",
+                    address: "23, Luz Church Road, Pearl Street, Chennai, Tamil Nadu, 600004",
+                    totalBeds: 30
+                },
+                {
+                    name: "T. Nagar",
+                    address: "12, Pondy Bazaar, Ruby Street, Chennai, Tamil Nadu, 600017",
+                    totalBeds: 25
+                },
+                {
+                    name: "Perambur",
+                    address: "45, Perambur High Road, Diamond Avenue, Chennai, Tamil Nadu, 600011",
+                    totalBeds: 35
+                },
+                {
+                    name: "Velachery",
+                    address: "67, Velachery Main Road, Emerald Lane, Chennai, Tamil Nadu, 600042",
+                    totalBeds: 30
+                }
+            ],
+            "Mumbai": [
+                {
+                    name: "Bandra",
+                    address: "13, Linking Road, Ruby Street, Bandra, Mumbai, Maharashtra, 400050",
+                    totalBeds: 25
+                },
+                {
+                    name: "Andheri",
+                    address: "2, Andheri Kurla Road, Emerald Lane, Andheri, Mumbai, Maharashtra, 400059",
+                    totalBeds: 30
+                },
+                {
+                    name: "Juhu",
+                    address: "18, Juhu Tara Road, Pearl Street, Juhu, Mumbai, Maharashtra, 400049",
+                    totalBeds: 20
+                },
+                {
+                    name: "Dadar",
+                    address: "47, Dadar TT Circle, Diamond Avenue, Dadar, Mumbai, Maharashtra, 400014",
+                    totalBeds: 25
+                }
+            ],
+            "Pune": [
+                {
+                    name: "Baner",
+                    address: "34, Baner Road, Sapphire Lane, Baner, Pune, Maharashtra, 411045",
+                    totalBeds: 20
+                },
+                {
+                    name: "Kothrud",
+                    address: "29, Paud Road, Diamond Avenue, Kothrud, Pune, Maharashtra, 411038",
+                    totalBeds: 25
+                },
+                {
+                    name: "Viman Nagar",
+                    address: "50, Nagar Road, Ruby Street, Viman Nagar, Pune, Maharashtra, 411014",
+                    totalBeds: 35
+                },
+                {
+                    name: "Wakad",
+                    address: "19, Hinjewadi Road, Emerald Lane, Wakad, Pune, Maharashtra, 411057",
+                    totalBeds: 30
+                }
+            ]
+        };
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const location = getQueryParam('location');
+        const locationDetails = locationsData[location];
+
+        const detailsContainer = document.getElementById('details');
+        if (locationDetails) {
+            locationDetails.forEach(detail => {
+                const detailDiv = document.createElement('div');
+                detailDiv.classList.add('location-detail');
+                detailDiv.innerHTML = `
+                    <h2>${detail.name}</h2>
+                    <p><strong>Address:</strong> ${detail.address}</p>
+                    <p><strong>Total Beds:</strong> ${detail.totalBeds}</p>
+                `;
+                detailsContainer.appendChild(detailDiv);
+            });
+        } else {
+            detailsContainer.innerHTML = '<p>No details available for this location.</p>';
+        }
+    </script>
+</body>
+</html>
