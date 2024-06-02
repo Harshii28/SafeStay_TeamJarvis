@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="newstyles.css">
+</head>
+<body>
+    <header>
+        <h1>My Bookings</h1>
+    </header>
+    <main>
+        <div id="myBookings" class="center-content"></div>
+    </main>
+    <footer>
+        <p>Contact us at info@booking.com</p>
+        <p>All rights reserved &copy; 2024</p>
+    </footer>
+
+    <script>
+        const bookingsContainer = document.getElementById('myBookings');
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+        if (bookings.length > 0) {
+            bookings.forEach(booking => {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.classList.add('booking-detail');
+                bookingDiv.innerHTML = `
+                    <h2>${booking.shelter}, ${booking.location}</h2>
+                    <p><strong>Name:</strong> ${booking.name}</p>
+                    <p><strong>Date:</strong> ${booking.date}</p>
+                `;
+                bookingsContainer.appendChild(bookingDiv);
+            });
+        } else {
+            bookingsContainer.innerHTML = '<p>No bookings found.</p>';
+        }
+    </script>
+</body>
+</html>
