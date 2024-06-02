@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Stay - Home</title>
+    <link rel="stylesheet" href="newstyles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://i.ibb.co/Q6hDLBw/220421-Stay-Safe-TV-Screen5-1-932x584.jpg" alt="Safe Stay Logo">
+        </div>
+        <div class="user-greeting">
+            <div class="profile-container">
+                <img src="https://i.ibb.co/v1TD1bb/png-transparent-profile-icon-user-computer-icons-system-chinese-wind-title-column-miscellaneous-serv.png" alt="Profile Image" class="profile-image">
+                <span>Hi, Ram</span>
+                <div class="dropdown-menu">
+                    <a href="index.html" class="logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+   
+    <nav class="secondary-header">
+        <div class="nav-left">
+            <a href="#" onclick="openBookingModal()">Reservation</a>
+            <a href="my-bookings.html">My Bookings</a>
+        </div>
+        <div class="nav-right">
+            <a href="index.html" class="logout">Log Out</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Welcome to Safe Stay</h1>
+        <div class="boxed-content">
+            <h2>Safe Stay</h2>
+            <p>Managing the availability and reservation of emergency shelters efficiently.</p>
+            <a href="#" class="book-now-button" onclick="openBookingModal()">Book Now</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2><img src="https://i.ibb.co/c6g6h6q/7cd31e8d07402a2a01a296f647eb261a.jpg" alt="Location Icon" class="footer-icon"> Locations</h2>
+                <ul>
+                    <li>Hyderabad</li>
+                    <li>Bengaluru</li>
+                    <li>Chennai</li>
+                    <li>Mumbai</li>
+                    <li>Pune</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h2><img src="https://i.ibb.co/tswWZ5R/png-transparent-hotline-telephone-help-desk-helpline-time-is-money-miscellaneous-company-text.png" alt="Helpline Icon" class="footer-icon"> Helpline Number</h2>
+                <p>080-26547890</p>
+                <p>safestay24@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Safe Stay. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingModal()">&times;</span>
+            <h2>Book a Reservation</h2>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+               
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+               
+                <label for="location">Location:</label>
+                <select id="location" name="location" required onchange="updateShelters()">
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                </select>
+
+                <label for="shelter">Shelter:</label>
+                <select id="shelter" name="shelter" required>
+                    <!-- Options will be dynamically populated -->
+                </select>
+               
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const locationsData = {
+            "Bangalore": ["Hebbal", "Marathahalli", "Whitefield", "Majestic"],
+            "Hyderabad": ["Jubilee Hills", "Kukatpally", "Secunderabad", "Ameerpet"],
+            "Chennai": ["Mylapore", "T. Nagar", "Perambur", "Velachery"],
+            "Mumbai": ["Bandra", "Andheri", "Juhu", "Dadar"],
+            "Pune": ["Baner", "Kothrud", "Viman Nagar", "Wakad"]
+        };
+
+        function openBookingModal() {
+            document.getElementById('bookingModal').style.display = 'block';
+            updateShelters();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function updateShelters() {
+            const location = document.getElementById('location').value;
+            const shelterSelect = document.getElementById('shelter');
+            shelterSelect.innerHTML = '';
+
+            if (locationsData[location]) {
+                locationsData[location].forEach(shelter => {
+                    const option = document.createElement('option');
+                    option.value = shelter;
+                    option.textContent = shelter;
+                    shelterSelect.appendChild(option);
+                });
+            }
+        }
+
+        function submitBooking(event) {
+            event.preventDefault();
+            const form = document.getElementById('bookingForm');
+            const name = form.name.value;
+            const date = form.date.value;
+            const location = form.location.value;
+            const shelter = form.shelter.value;
+
+            const booking = { name, date, location, shelter };
+            let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+
+            closeBookingModal();
+            alert('Booking successful!');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        window.onload = updateShelters;
+    </script>
+</body>
+</html>
+
