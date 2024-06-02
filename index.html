@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="styleslog.css">
+</head>
+<body>
+    <div class="login-dialog">
+        <div class="login-header">
+            <img src="https://i.ibb.co/Q6hDLBw/220421-Stay-Safe-TV-Screen5-1-932x584.jpg" alt="Safe Stay Logo" class="login-logo">
+        </div>
+        <h2>Login</h2>
+        <form action="login.php" method="POST">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="button" onclick="login()" id="submit" value="Login">
+        </form>
+    </div>
+<script>
+function login (){
+    let username =document.getElementById("username").value;
+    let password2 =document.getElementById("password").value;
+
+    let website_username="Ram";
+    let website_password="123";
+
+    if(username == website_username && password2 == website_password){
+        window.location="newhome.html";
+    }
+}
+</script>
+</body>
+</html>
+
